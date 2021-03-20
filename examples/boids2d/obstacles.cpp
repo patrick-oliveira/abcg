@@ -52,20 +52,22 @@ Obstacles::Obstacle Obstacles::createObstacle() {
 
     auto &re{m_randomEngine};
 
+    // Numero de lados eh aleatorio
     std::uniform_int_distribution<int> randomSides(16, 40);
     obstacle.m_sides = randomSides(re);
 
-    // Random gray scale
+    // Cor (tom de cinza) eh aleatoria
     std::uniform_real_distribution<float> randomIntensity(0.5f, 1.0f);
     obstacle.m_color = glm::vec4(1) * randomIntensity(re);
     obstacle.m_color.a = 1.0f;
 
-    // Random scale factor
+    // Fator de escala eh aleatorio
     std::uniform_real_distribution<float> rd2(0.1f, 0.3f);
     auto scale{rd2(re)};
     obstacle.m_scale = scale;
 
-    // Random position
+    // A posicao onde o obstaculo ficara eh aleatoria, porem ele nao pode ficar nem tao perto do centro, onde o predador inicialmente aparece,
+    // e nem muito proximo das bordas, pois pode induzir os passaros a sair da tela para conseguir desviar dos obstaculos.
     std::uniform_real_distribution<float> rd1(-1.0f, 1.0f);
     float length;
     do {

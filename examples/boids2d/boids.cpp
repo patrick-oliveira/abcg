@@ -14,9 +14,12 @@ void Boids::terminateGL() {
 
 Boids::Boid Boids::createBoid(const GlobalData &globalData, Obstacles *obstacles){
     Boid boid;
+    // Cada boid eh inicializado em uma posicao arbitraria, com uma velocidade/direcao inicial arbitraria
     glm::vec2 direction{m_randomDist(m_randomEngine), m_randomDist(m_randomEngine)};
     boid.m_velocity = globalData.speed*glm::normalize(direction);
 
+    // os boids nao podem ser inicializados no interior de um obstaculo, entao aqui eh feita uma verificacao
+    // percorrendo todos os obstaculos ja carregados
     int k;
     glm::vec2 position{glm::vec2(0)};
     do{
@@ -27,9 +30,12 @@ Boids::Boid Boids::createBoid(const GlobalData &globalData, Obstacles *obstacles
                 k = 1;
         }
     } while(k);
+
     boid.m_position.x = (globalData.viewportWidth/2)*boid.m_translation.x;
     boid.m_position.y = (globalData.viewportHeight/2)*boid.m_translation.y;
 
+    // A rotacao tambem eh ajustada em funcao da velocidade inicial para que os boids sempre apontem para onde
+    // estao andando
     boid.m_rotation = std::atan2(boid.m_velocity.y, boid.m_velocity.x) - M_PI_2;
 
     std::vector<glm::vec2> positions(0);
@@ -99,11 +105,14 @@ void Boids::paintGL() {
 
 void Boids::update(const GlobalData &globalData, glm::vec2 predatorLoc, Obstacles *obstacles, float deltaTime) {
     for (auto &boid : m_boids) {
+        // Chama as funcoes que governam o comportamento de floculacao
         cluster(&boid);
         avoid(&boid);
         match(&boid);
         speedLimit(&boid);  
         
+        // Se o predator estiver ativado, eh verificado se o predator esta proximo do boid, 
+        // e se for o caso, o vetor velocidade sofre uma alteracao na direcao contraria a posicao do predador
         if(globalData.m_removePredator == false) {
             float distance = glm::length(boid.m_translation - predatorLoc);
             if (distance < m_minPredatorDistance){
@@ -112,6 +121,10 @@ void Boids::update(const GlobalData &globalData, glm::vec2 predatorLoc, Obstacle
             }
         }
         
+        // Eh verificado se o boid esta dentro do escopo da janela da aplicacao
+        // Como a velocidade/ direcao eh ajustada gradativamente, essa verificacao
+        // comeca ja dentro de uma margem, assim os boids geralmente nao sairao da janela,
+        // e se sairem (devido a velocidade acumulada), voltarao rapidamente
         if (boid.m_translation.x > 1.0f - globalData.margin)
             boid.m_velocity.x -= m_speedLimit*globalData.correction;
         if (boid.m_translation.y > 1.0f - globalData.margin)
@@ -121,11 +134,16 @@ void Boids::update(const GlobalData &globalData, glm::vec2 predatorLoc, Obstacle
         if (boid.m_translation.y < -1.0f + globalData.margin)
             boid.m_velocity.y += m_speedLimit*globalData.correction;
 
+        // Eh verificado se o boid esta colidindo com um obstaculo, de maneira similar ao que foi feito
+        // no exercicio de asteroids.
+        // Caso haja colisao, a velocidade do boid eh ajustada por uma rotacao para a direcao do vetor
+        // tangente ao obstaculo, assim o boid consegue desviar para os lados
         for (auto & obstacle : (*obstacles).m_obstacles) {
             if (glm::distance(boid.m_translation, obstacle.m_translation) < boid.m_scale + obstacle.m_scale){
                 glm::vec2 tangentVector = {obstacle.m_translation.y - boid.m_translation.y,
                                            boid.m_translation.x - obstacle.m_translation.x};
-                float angle = -0.8*glm::angle(tangentVector, boid.m_velocity);
+                float angle = -0.8*glm::angle(tangentVector, boid.m_velocity); // o termo 0.8 foi obtido empiricamente, para que o
+                                                                               // ajuste seja mais suave
                 boid.m_velocity = glm::rotate(boid.m_velocity, angle);
             }
         }  
@@ -139,6 +157,7 @@ void Boids::update(const GlobalData &globalData, glm::vec2 predatorLoc, Obstacle
 }
 
 void Boids::speedLimit(Boid *boid) {
+    // mantem a velocidade do boid dentro de um limite (em modulo)
     float speed = glm::length((*boid).m_velocity);
     if(speed > m_speedLimit) {
         (*boid).m_velocity = glm::normalize((*boid).m_velocity)*m_speedLimit;
@@ -146,10 +165,12 @@ void Boids::speedLimit(Boid *boid) {
 }
 
 float Boids::distance(Boid *b1, Boid *b2) {
+    // calcula a distancia entre dois boids
     return  glm::length((*b1).m_translation - (*b2).m_translation);
 }
 
 void Boids::cluster(Boid *boid) {
+    // calcula o centro de gravidade de todos os boinds vizinhos suficientemente proximos
     glm::vec2 center{0.0f, 0.0f};
 
     int N = 0;
@@ -168,6 +189,7 @@ void Boids::cluster(Boid *boid) {
 }
 
 void Boids::avoid(Boid *boid){
+    // Recebe um ajuste na direcao contraria aos boids vizinhos proximos de mais
     for (auto &b1 : m_boids) {
         if (boid != &b1 && distance(boid, &b1) < m_minDistance){
             (*boid).m_velocity.x += ((*boid).m_translation.x - b1.m_translation.x)*m_avoidFactor;
@@ -179,6 +201,8 @@ void Boids::avoid(Boid *boid){
 }
 
 void Boids::match(Boid *boid){
+    // Eh feito um ajuste para que o boid entre em sincronia com a direcao do seu grupo, i.e.
+    // os vizinhos suficientemente proximos
     glm::vec2 avgVelocity{0.0f, 0.0f};
     int N{0};
 

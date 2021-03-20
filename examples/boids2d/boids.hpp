@@ -3,8 +3,6 @@
 
 #include <list>
 #include <random>
-#include <iostream>
-#include <string>
 
 #include "abcg.hpp"
 #include "globaldata.hpp"
@@ -42,6 +40,7 @@ class Boids {
         };
 
         std::list<Boid> m_boids;
+        
         float m_visualRange{0.2f};
         float m_speedLimit{0.9f};
         float m_minDistance{0.1f};
@@ -61,8 +60,6 @@ class Boids {
         void avoid(Boid *boid);
         void match(Boid *boid);
         void speedLimit(Boid *boid);
-
-        std::string output;
 };
 
 #endif

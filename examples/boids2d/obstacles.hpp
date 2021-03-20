@@ -13,6 +13,7 @@ class Predator;
 class Boids;
 
 class Obstacles {
+    // Os obstaculos sao construidos de maneira similar ao modo como foram construidos os asteroides e os poligonos nos trabalhos anteriores
     public:
         void initializeGL(GLuint program, int quantity);
         void paintGL();

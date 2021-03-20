@@ -5,6 +5,7 @@
 #include <iostream>
 
 void OpenGLWindow::handleEvent(SDL_Event &event) {
+  // O botao esquerdo do mouse determina se o predator esta ou nao incluso no modelo
   if(event.type == SDL_MOUSEBUTTONDOWN) {
     if(event.button.button == SDL_BUTTON_LEFT)
       m_globalData.m_removePredator = false;
@@ -16,7 +17,7 @@ void OpenGLWindow::handleEvent(SDL_Event &event) {
 }
 
 void OpenGLWindow::initializeGL() {
-  m_boidsProgram = createProgramFromFile(getAssetsPath() + "boids.vert", getAssetsPath() + "boids.frag");
+  m_boidsProgram = createProgramFromFile(getAssetsPath() + "boids.vert", getAssetsPath() + "boids.frag"); // Estes arquivos sao utilizados tanto para os boids quanto para o predador
   m_obstaclesProgram = createProgramFromFile(getAssetsPath() + "obstacles.vert", getAssetsPath() + "obstacles.frag");
 
   glClearColor(0, 0, 0, 1);
@@ -35,6 +36,7 @@ void OpenGLWindow::initializeGL() {
 }
 
 void OpenGLWindow::update() {
+  // Os obstaculos sao estaticos
   float deltaTime{static_cast<float>(getDeltaTime())};
   
   m_predator.update(m_globalData, &m_obstacles, deltaTime);
@@ -48,7 +50,8 @@ void OpenGLWindow::paintGL() {
   glViewport(0, 0, m_viewportWidth, m_viewportHeight);
 
   m_obstacles.paintGL();
-  if (m_globalData.m_removePredator == false) m_predator.paintGL();
+  if (m_globalData.m_removePredator == false) m_predator.paintGL(); // O predador nao eh pintado na tela se ele estiver desativado
+                                                                    // As funcoes internas dos boids tambem confere se o predador esta ativado
   m_boids.paintGL();
 }
 
@@ -59,8 +62,8 @@ void OpenGLWindow::paintUI() {
     ImGui::SetNextWindowSize(ImVec2(400, 270));
     auto flags{ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground};
     ImGui::Begin(" ", nullptr, flags);
-    ImGui::Text(m_boids.output.c_str());
     ImGui::PushItemWidth(100);
+    // Parametros
     ImGui::SliderFloat("Visual Range", &m_boids.m_visualRange, 0.0f, 1.0f, "%.3f");
     ImGui::SliderFloat("Speed Limit", &m_boids.m_speedLimit, 0.0f, 3.0f, "%.3f");
     ImGui::SliderFloat("Min Distance", &m_boids.m_minDistance, 0.0f, 0.3f, "%.3f");
@@ -69,7 +72,6 @@ void OpenGLWindow::paintUI() {
     ImGui::SliderFloat("Avoid Factor", &m_boids.m_avoidFactor, 0.0f, 1.0f, "%.3f");
     ImGui::SliderFloat("Predator Avoid Factor", &m_boids.m_predatorAvoidFactor, 0.0f, 3.0f, "%.3f");
     ImGui::SliderFloat("Match Coefficient", &m_boids.m_matchingFactor, 0.0f, 0.3f, "%.3f");
-    ImGui::Checkbox("Remove Predator", &m_globalData.m_removePredator);
     ImGui::End();
   }
 }
@@ -77,6 +79,7 @@ void OpenGLWindow::paintUI() {
 void OpenGLWindow::resizeGL(int width, int height) {
   m_viewportHeight = height;
   m_viewportWidth  = width;
+  // Essa copia eh salva para pegar o vetor posicao nao-normalizado dos itens na tela
   m_globalData.viewportHeight = height;
   m_globalData.viewportWidth  = width;
 

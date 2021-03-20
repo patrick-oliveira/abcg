@@ -1,8 +1,7 @@
 #include <fmt/core.h>
 
 #include "abcg.hpp"
-#include "openglwindow.hpp" // Classe openglwindow, definida em outro arquivo
-                            // Note que é possível definir uma classe em um arquivo .hpp para ser importada por outros arquivos
+#include "openglwindow.hpp" 
 
 int main(int argc, char **argv) {
     try{

@@ -32,11 +32,9 @@ class OpenGLWindow : public abcg::OpenGLWindow {
         Boids m_boids;
         Obstacles m_obstacles;
         Predator m_predator;
-        bool m_removePredator{false};
 
         GlobalData m_globalData;
 
-        abcg::ElapsedTimer m_restartWaitTimer;
         std::default_random_engine m_randomEngine; 
 
         void update();
