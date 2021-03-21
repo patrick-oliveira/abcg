@@ -23,7 +23,6 @@ class OpenGLWindow : public abcg::OpenGLWindow {
 
     private:
         GLuint m_boidsProgram{};
-        GLuint m_predatorProgram{};
         GLuint m_obstaclesProgram{};
 
         int m_viewportWidth{};  

@@ -21,7 +21,6 @@ Boids::Boid Boids::createBoid(const GlobalData &globalData, Obstacles *obstacles
     // os boids nao podem ser inicializados no interior de um obstaculo, entao aqui eh feita uma verificacao
     // percorrendo todos os obstaculos ja carregados
     int k;
-    glm::vec2 position{glm::vec2(0)};
     do{
         boid.m_translation = {m_randomDist(m_randomEngine), m_randomDist(m_randomEngine)};
         k = 0;

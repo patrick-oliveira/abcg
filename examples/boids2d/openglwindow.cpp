@@ -30,8 +30,8 @@ void OpenGLWindow::initializeGL() {
   auto seed{std::chrono::steady_clock::now().time_since_epoch().count()};
   m_randomEngine.seed(seed);
 
-  m_obstacles.initializeGL(m_obstaclesProgram, 2);
-  m_boids.initializeGL(m_boidsProgram, 600, m_globalData, &m_obstacles);
+  m_obstacles.initializeGL(m_obstaclesProgram, 3);
+  m_boids.initializeGL(m_boidsProgram, 800, m_globalData, &m_obstacles);
   m_predator.initializeGL(m_boidsProgram);
 }
 
