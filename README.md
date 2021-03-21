@@ -25,6 +25,8 @@ Os pássaros também se ajustam automaticamente, por meio de um termo de correç
 
 A aplicação suporta com facilidade 500 pássaros na tela. Imagino que meu computador consegue incluir mais elementos na tela, portanto isso dever devido à programação ineficiente. A aplicação precisa percorrer todos os pássaros a cada frame, ajustando os atributos de cada pássaro em função dos atributos de (potencialmente) todos os outros, incluindo obstáculos e o predator. Todo esse processo acaba sendo deveras custoso.
 
+A solução para que o predador desvie dos obstáculos também não está ideal e pode ocorrer dele entrar na região de um obstáculo (mas não fica preso lá). A dificuldade esteve no fato de que o vetor velocidade do predador era constantemente atualizado pela posição do mouse, conflitando com o ajuste do desvio pela tangente do osbtáculo.
+
 ## Referências
 
 A aplicação é baseada no modelo clássico e mais básico proposto por Craig W. Raynolds. Referências em pseudocódigo podem ser encontradas em \[1\] e a página do criador do modelo está em \[2\].
