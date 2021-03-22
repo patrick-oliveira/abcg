@@ -19,6 +19,8 @@ Patrick Oliveira de Paula - RA: 11002616
 
 Estes parâmetros podem ser ajustados para observar o comportamento global dos pássaros. Por exemplo, um ângulo de visual menor contribuirá para que os pássaros se organizem em grupos pequenos, um parâmetro de similaridade ou de centralidade altos contribuirão para que os grupos sejam coerentes e não se quebrem tão facilmente, e de modo geral os pássaros terminarão formando um único grupo (que pode ser perturbado pela presença do predador). Uma velocidade alta contribui para a desagregação dos grupos, e que podem se agregar novamente com maior ou menor facilidade a depender dos outros parâmetros. Um parâmetro de repulsão elevado tenderá a fazer com que o grupo de espalhe pelo cenário, não necessário se desagregando (mas isso pode ser particularmente mais fácil quando a velocidade é maior).
 
+Um ajuste interessante é reduzir o campo de visão para 0, o que faz cada pássaro independente dos outros, se espalhando pela tela, e depois aumentá-lo para ver a formação de comportamento grupal.
+
 Os pássaros também se ajustam automaticamente, por meio de um termo de correção adicionado às suas velocidades, à janela da aplicação, mantendo-se no campo de visão. Eles escapam para fora (e voltam novamente) com maior facilidade se a velocidade é mais alta, mas o termo de correção pode ser ajustado (variável "correction" em GlobalData) para que os pássaros fiquem estritamente dentro do escopo da janela.
 
 ## Dificuldades em particular
