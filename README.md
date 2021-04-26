@@ -12,7 +12,7 @@ Este projeto é uma extensão do projeto Boids 2D, sendo adaptado para 3D. A din
 
 - Existe mais um outro obstáculo, uma esfera com textura de fogo, que especifica também a posição da fonte de luz da cena.
 
-- Apesar dos obstáculos e da fonte de luz utilizarem textura, os boids utilizam apenas iluminação de Blinn-Phong. Em parte por decisão estética, mas mantive os dois shaders na pasta.
+- Apesar dos obstáculos e da fonte de luz utilizarem textura, os boids utilizam apenas iluminação de Blinn-Phong. Em parte por decisão estética, mas mantive os dois shaders na pasta. Os obstáculos foram gerados pelo software "3D Builder" utilizando imagens obtidas na internet para as texturas. 
 
 - Os parâmetros de controle do comportamento dos boids permanece o mesmo, mas agora eles são ajustados em 0.1 pelo teclado. A seguir, os parâmetros serão descritos, juntamente com as teclas de acréscimo e de decréscimo de 0.1.
 
