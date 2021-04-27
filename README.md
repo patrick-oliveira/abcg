@@ -36,6 +36,8 @@ Existe um limite no campo de visão da câmera, então quando a câmera se afast
 
 O modo como os boids evitam os obstáculos ainda não está ideal. O boid decide se mover quando a posição (central) do obstáculo está no escopo do seu campo de visão, mas isso ainda permite interseções dos boids com os obstáculos caso a escala do obstáculo seja muito grande. Idealmente, deveria ser possível calcular a distância entre a superfície do objeto e o boid.
 
+A esfera de fogo, sendo a fonte de luz, deveria ter seu shader alterado para incluir o termo de emissão de luz. Entretanto, compartilhei o shader para os obstáculos e a fonte de luz, portanto não inclui o termo de emissão da fonte e precisava especificar uma direção da luz emitida na fonte. Para este último caso, coloquei uma direção vertical.
+
 ## Referências
 
 A aplicação é baseada no modelo clássico e mais básico proposto por Craig W. Raynolds. Referências em pseudocódigo podem ser encontradas em \[1\] e a página do criador do modelo está em \[2\].
