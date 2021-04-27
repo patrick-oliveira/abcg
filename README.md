@@ -4,7 +4,7 @@ Patrick Oliveira de Paula - RA: 11002616
 
 ## Recursos do Programa
 
-Este projeto é uma extensão do projeto Boids 2D, sendo adaptado para 3D. A dinâmica dos boids é fundalmentamente a mesma, com funções de agrupamento, afastamento e imitação para controlar o comportamento grupal dos boids. Além disso,
+Este projeto é uma extensão do projeto Boids 2D, sendo adaptado para 3D. A dinâmica dos boids é fundamentalmente a mesma, com funções de agrupamento, afastamento e imitação para controlar o comportamento grupal dos boids. Além disso,
 
 - Ao abrir, a aplicação vai "capturar" o mouse a fim de que seja possível controlar a direção da câmera com o mouse. Se necessário, para sair basta apertar o botão do windows. No WebGL essa função não funciona muito bem, o mouse não é muito preciso, mas na aplicação desktop funciona adequadamente. O deslocamento da câmera ao longo do espaço é controlado pelas teclas W A S D (frente, esquerda, trás, direita), Q e E (rotação para a esquerda e direita), I e K (rotação para cima e para baixo), não sendo estritamente necessário o mouse para controlar a direção da câmera. Por fim, ao clicar com o botão esquerdo do mouse o movimento de todos os elementos da tela são congelados; clicar novamente reativa a animação. Obs: ao abrir a aplicação pelo desktop, pode ser necessário clicar uma vez para que os comandos do teclado sejam lidos (e uma outra vez para reativar a animação, desativada com o primeiro clique).
 
