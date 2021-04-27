@@ -32,9 +32,9 @@ A aplicação ainda não suporta um grande número de boids. Para conter um volu
 
 É necessário estipular um limite de rotação da câmera pelo mouse pois ocorrem alguns pequenos glitches quando a câmera é alinhada com o vetor "up"/Y.
 
-Existe um limite no campo de visão da câmera, então quando a câmera se afasta demais, os boids mais distantes desaparecem abruptamente. Gostaria de que esse afastamento fosse amenizado, deixando a imagem mais ofuscada, ou o boid cada vez menor, conforme ele se afasta, ou então retirando o limite de visão. 
+Existe um limite no campo de visão da câmera, então quando a câmera se afasta demais, os boids mais distantes desaparecem abruptamente. Gostaria de que esse afastamento fosse amenizado, deixando a imagem mais ofuscada, ou o boid cada vez menor conforme ele se afasta, ou então retirando o limite de visão. 
 
-O modo como os boids evitam os obstáculos ainda não está ideal. O boid decide se mover quando a posição (central) do obstáculo está no escopo do seu campo de visão, mas isso ainda permite interseções dos boids com os obstáculos, caso a escala do obstáculo seja muito grande. Idealmente, deveria ser possível calcular a distância entre a superfície do objeto e o boid.
+O modo como os boids evitam os obstáculos ainda não está ideal. O boid decide se mover quando a posição (central) do obstáculo está no escopo do seu campo de visão, mas isso ainda permite interseções dos boids com os obstáculos caso a escala do obstáculo seja muito grande. Idealmente, deveria ser possível calcular a distância entre a superfície do objeto e o boid.
 
 ## Referências
 
