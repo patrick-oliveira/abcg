@@ -12,6 +12,8 @@ As simulações podem ser visualizadas nos links
 
 ### Modelo
 
+_Boids_ é um tipo de simulação baseada em agentes. Este tipo de modelo computacional envolve um conjunto de agentes autônomos que se comportam e interagem de acordo com regras fundamentais pré-programadas, e a simulação objetiva observar o comportamento global do sistema e quais resultados são possíveis de ocorrer a partir destas regras fundamentais.
+
 ### Recursos
 
 #### 1. Boids 2D
