@@ -2,6 +2,8 @@
 
 Obs: Projeto elaborado no contexto da disciplina de Computação Gráfica, na UFABC.
 
+O repositório é um fork do repositório original da disciplina, contendo a biblioteca ABCg que facilita a prototipagem de aplicações gráficas interativas 3D em C++ capazes de rodar tanto no desktop quanto no navegador, sem alteração do código-fonte. O código das aplicações estão contidas na pasta _"examples"_.
+
 ## Descrição do Programa
 
 ### Modelo
