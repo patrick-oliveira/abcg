@@ -4,6 +4,10 @@ Obs: Projeto elaborado no contexto da disciplina de Computação Gráfica, na UF
 
 O repositório é um fork do repositório original da disciplina, contendo a biblioteca ABCg que facilita a prototipagem de aplicações gráficas interativas 3D em C++ capazes de rodar tanto no desktop quanto no navegador, sem alteração do código-fonte. O código das aplicações estão contidas na pasta _"examples"_.
 
+As simulações podem ser visualizadas nos links
+- ![Boids 2d](https://patrick-oliveira.github.io/Boids2Dwebgl/)
+- ![Boids 3d](https://patrick-oliveira.github.io/Boids3Dwebgl/)
+
 ## Descrição do Programa
 
 ### Modelo
