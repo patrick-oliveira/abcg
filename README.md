@@ -1,42 +1,31 @@
-# Boids 3D
+# Simulador de Murmúrio de Pássaros (Flocking Behaviour, ou "Boids")
 ## Autoria
 Patrick Oliveira de Paula - RA: 11002616
 
 ## Recursos do Programa
 
-Este projeto é uma extensão do projeto Boids 2D, sendo adaptado para 3D. A dinâmica dos boids é fundamentalmente a mesma, com funções de agrupamento, afastamento e imitação para controlar o comportamento grupal dos boids. Além disso,
-
-- Ao abrir, a aplicação vai "capturar" o mouse a fim de que seja possível controlar a direção da câmera com o mouse. Se necessário, para sair basta apertar o botão do windows. No WebGL essa função não funciona muito bem, o mouse não é muito preciso, mas na aplicação desktop funciona adequadamente. O deslocamento da câmera ao longo do espaço é controlado pelas teclas W A S D (frente, esquerda, trás, direita), Q e E (rotação para a esquerda e direita), I e K (rotação para cima e para baixo), não sendo estritamente necessário o mouse para controlar a direção da câmera. Por fim, ao clicar com o botão esquerdo do mouse o movimento de todos os elementos da tela são congelados; clicar novamente reativa a animação. Obs: ao abrir a aplicação pelo desktop, pode ser necessário clicar uma vez para que os comandos do teclado sejam lidos (e uma outra vez para reativar a animação, desativada com o primeiro clique).
-
-- Os boids possuem a capacidade de desviar de obstáculos, e para isso foram inseridos 12 obstáculos esféricos (com texturas de rocha) que fazem rotações no espaço. O intuito com isso era fazer com que as rotações entrassem em sincronia, mas fazer esse tipo de animação (quero dizer, estabelecer a sincronia) mostrou-se mais trabalhoso que o esperado, então a animação não é tão bonita quanto eu gostaria que fosse. A presença dos obstáculos contribui para que os boids não se juntem em um grande grupo.
-
-- Existe mais um outro obstáculo, uma esfera com textura de fogo, que especifica também a posição da fonte de luz da cena.
-
-- Apesar dos obstáculos e da fonte de luz utilizarem textura, os boids utilizam apenas iluminação de Blinn-Phong. Em parte por decisão estética, mas mantive os dois shaders na pasta. Os obstáculos foram gerados pelo software "3D Builder" utilizando imagens obtidas na internet para as texturas. 
-
-- Os parâmetros de controle do comportamento dos boids permanece o mesmo, mas agora eles são ajustados em 0.1 pelo teclado. A seguir, os parâmetros serão descritos, juntamente com as teclas de acréscimo e de decréscimo de 0.1.
-
+- É possível incluir um predator no modelo apertando o botão esquerdo do mouse, e ele permanecerá na tela enquanto o botão for segurado. O predador andará automaticamente na direção apontada pelo mouse, parando exatamente em cima do local apontado. Os outros indivíduos reagirão à presença do predador tentando se afastar dele em uma intensidade governada por um parâmetro "Predator Avoid Factor".
+- O programa inclui automaticamente um número ajustável de obstáculos de tamanho variável. O número de obstáculos e seus formatos precisa ser ajustado diretamente no código. Não achei que seria relevante deixar este parâmetro ajustável em tempo real, em particular porque tanto os pássaros quanto o predator se ajustam automaticamente ao se aproximar de um obstáculo, rotacionando o seu vetor de direção para que fique tangente ao obstáculo, desviando-o portanto. Um volume muito grande de obstáculos dispersaria demais os pássaros.
 - O modelo envolve 8 parâmetros ajustáveis por "Sliders":
-  - __Exemplo\[Tecla de Acréscimo - Tecla de Decréscimo\]: Função__
-  - Visual Range\[F1 - 1\] : Determina o raio do círculo centrado em cada pássaro e que delimita o seu círculo de visão. Para um pássaro A, todo pássaro B que estiver dentro do círculo de visão será incluído nos cálculos de atualização da direção de A.
-  - Speed Factor\[F2 - 2\]  : Determina a velocidade dos pássaros. A velocidade contribui para determinar a coerência dos pássaros pois quanto maior a velocidade, mais facilmente cada pássaro escapa dos grupos que se formam espontaneamente.
-  - Min Distance\[F3 - 3\] : Determina a menor distância que pode haver entre qualquer par de pássaros. Quando dois pássaros A e B estão distanciados por este limiar (ou menos), sua velocidade é incrementada nas direções mutuamente opostas, a fim de que se afastem, com intensidade a depender do parâmetro "Avoid Factor".
-  - Centering Factor \[F4 - 4\]  : É o parâmetro utilizado para determinar o grau de união dos pássaros. Dado um pássaro A, sua direção tenderá para o centro de gravidade (a posição média) de todos os pássaros dentro do seu campo de visão. O quão acentuada será esta tendência dependerá deste parâmetro de centralidade.
-  - Avoid Factor \[F5 - 5\] : É o parâmetro para determinar a intensidade da repulsão entre dois pássaros que estão a uma distância mínima.
-  - Match Coefficient \[F6 - 6\] : Este parâmetro de similaridade determina o grau com que cada pássaro tentará se adequar aos pássaros vizinhos, assumindo a direção de movimento do grupo. É o parâmetro que regula a contribuição, para a direção final de cada pássaro, do vetor médio das velocidades dos pássaros vizinhos. 
-  - Correction Factor \[F7 - 7\] : Este parâmetro determina a intensidade com que os boids evitarão os extremos do limite do espaço (determinados artificialmente, sendo um cubo de 3 de lado) e os obstáculos da cena.
+  - Exemplo\[Limite_Inferior, Limite_Superior\]: Função
+  - Visual Range\[0.0, 1.0\] : Determina o raio do círculo centrado em cada pássaro e que delimita o seu círculo de visão. Para um pássaro A, todo pássaro B que estiver dentro do círculo de visão será incluído nos cálculos de atualização da direção de A.
+  - Speed Limit\[0.0, 3.0\]  : Determina a velocidade máxima (em módulo) dos pássaros. A velocidade contribui para determinar a coerência dos pássaros pois quanto maior a velocidade, mais facilmente cada pássaro escapa dos grupos que se formam espontaneamente.
+  - Min Distance\[0.0, 0.3\] : Determina a menor distância que pode haver entre qualquer par de pássaros. Quando dois pássaros A e B estão distanciados por este limiar (ou menos), sua velocidade é incrementada nas direções mutuamente opostas, a fim de que se afastem, com intensidade a depender do parâmetro "Avoid Factor".
+  - Min Pred. Distance\[0.0, 0.3\] : Tem função análoga a do parâmetro anterior, porém agora a distância é em relação a cada pássaro e o predador.
+  - Centering Factor \[0.0, 1.0\]  : É o parâmetro utilizado para determinar o grau de união dos pássaros. Dado um pássaro A, sua direção tenderá para o centro de gravidade (a posição média) de todos os pássaros dentro do seu campo de visão. O quão acentuada será esta tendência dependerá deste parâmetro de centralidade.
+  - Avoid Factor \[0.0, 1.0\] : É o parâmetro para determinar a intensidade da repulsão entre dois pássaros que estão a uma distância mínima.
+  - Predator Avoid Factor \[0.0, 3.0\] : Tem função análoga a do parâmetro anterior, mas agora em relação ao predator.
+  - Match Coefficient \[0.0, 0.3\] : Este parâmetro de similaridade determina o grau com que cada pássaro tentará se adequar aos pássaros vizinhos, assumindo a direção de movimento do grupo. É o parâmetro que regula a contribuição, para a direção final de cada pássaro, do vetor médio das velocidades dos pássaros vizinhos. 
+
+Estes parâmetros podem ser ajustados para observar o comportamento global dos pássaros. Por exemplo, um ângulo de visual menor contribuirá para que os pássaros se organizem em grupos pequenos, um parâmetro de similaridade ou de centralidade altos contribuirão para que os grupos sejam coerentes e não se quebrem tão facilmente, e de modo geral os pássaros terminarão formando um único grupo (que pode ser perturbado pela presença do predador). Uma velocidade alta contribui para a desagregação dos grupos, e que podem se agregar novamente com maior ou menor facilidade a depender dos outros parâmetros. Um parâmetro de repulsão elevado tenderá a fazer com que o grupo de espalhe pelo cenário, não necessário se desagregando (mas isso pode ser particularmente mais fácil quando a velocidade é maior).
+
+Os pássaros também se ajustam automaticamente, por meio de um termo de correção adicionado às suas velocidades, à janela da aplicação, mantendo-se no campo de visão. Eles escapam para fora (e voltam novamente) com maior facilidade se a velocidade é mais alta, mas o termo de correção pode ser ajustado (variável "correction" em GlobalData) para que os pássaros fiquem estritamente dentro do escopo da janela.
 
 ## Dificuldades em particular
 
-A aplicação ainda não suporta um grande número de boids. Para conter um volume muito grande de boids, existem algumas estruturas de dados para acelerar o cálculo da direção de cada boid em função dos seus vizinhos mais próximos, e também seria possível realizar esse processamento pela GPU, entretanto ambas as soluções demandariam algum tempo.
+A aplicação suporta com facilidade 500 pássaros na tela. Imagino que meu computador consegue incluir mais elementos na tela, portanto isso dever devido à programação ineficiente. A aplicação precisa percorrer todos os pássaros a cada frame, ajustando os atributos de cada pássaro em função dos atributos de (potencialmente) todos os outros, incluindo obstáculos e o predator. Todo esse processo acaba sendo deveras custoso.
 
-É necessário estipular um limite de rotação da câmera pelo mouse pois ocorrem alguns pequenos glitches quando a câmera é alinhada com o vetor "up"/Y.
-
-Existe um limite no campo de visão da câmera, então quando a câmera se afasta demais, os boids mais distantes desaparecem abruptamente. Gostaria de que esse afastamento fosse amenizado, deixando a imagem mais ofuscada, ou o boid cada vez menor conforme ele se afasta, ou então retirando o limite de visão. 
-
-O modo como os boids evitam os obstáculos ainda não está ideal. O boid decide se mover quando a posição (central) do obstáculo está no escopo do seu campo de visão, mas isso ainda permite interseções dos boids com os obstáculos caso a escala do obstáculo seja muito grande. Idealmente, deveria ser possível calcular a distância entre a superfície do objeto e o boid.
-
-A esfera de fogo, sendo a fonte de luz, deveria ter seu shader alterado para incluir o termo de emissão de luz. Entretanto, compartilhei o shader para os obstáculos e a fonte de luz, portanto não inclui o termo de emissão da fonte e precisava especificar uma direção da luz emitida na fonte. Para este último caso, coloquei uma direção vertical.
+A solução para que o predador desvie dos obstáculos também não está ideal e pode ocorrer dele entrar na região de um obstáculo (mas não fica preso lá). A dificuldade esteve no fato de que o vetor velocidade do predador era constantemente atualizado pela posição do mouse, conflitando com o ajuste do desvio pela tangente do osbtáculo.
 
 ## Referências
 

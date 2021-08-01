@@ -1,1 +1,1 @@
-add_subdirectory(boids3d)
+add_subdirectory(boids2d)
