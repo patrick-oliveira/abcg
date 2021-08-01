@@ -1,6 +1,9 @@
-@echo off
+#!/bin/bash
+set -euo pipefail
 
-echo Open http://localhost:8080/
+#cd public
 
-:: Serve files using a webserver
+echo "Open http://localhost:8080/"
+
+# Serve files using a webserver
 emrun --no_browser --port 8080 public/

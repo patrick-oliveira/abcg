@@ -1,10 +1,20 @@
-@echo off
+#!/bin/bash
+set -euo pipefail
 
-set BUILD_TYPE=Release
+BUILD_TYPE=Release
 
-:: Reset build directory
-rd /s /q build 2>nul
-mkdir build & cd build
+# Reset build directory
+rm -rf build
+mkdir -p build && cd build
 
-:: Configure and build
-emcmake cmake -G Ninja -DCMAKE_BUILD_TYPE=%BUILD_TYPE% .. & cmake --build . --config %BUILD_TYPE% -- -j %NUMBER_OF_PROCESSORS% & cd ..
+# Configure
+emcmake cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+
+# Build
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS
+  NUM_PROCESSORS=$(sysctl -n hw.ncpu)
+else
+  NUM_PROCESSORS=$(nproc)
+fi
+cmake --build . --config $BUILD_TYPE -- -j $NUM_PROCESSORS
