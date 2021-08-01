@@ -2,7 +2,7 @@
 ## Autoria
 Patrick Oliveira de Paula - RA: 11002616
 
-## Recursos do Programa
+Obs: Projeto elaborado no contexto da disciplina de Computação Gráfica, na UFABC.
 
 - É possível incluir um predator no modelo apertando o botão esquerdo do mouse, e ele permanecerá na tela enquanto o botão for segurado. O predador andará automaticamente na direção apontada pelo mouse, parando exatamente em cima do local apontado. Os outros indivíduos reagirão à presença do predador tentando se afastar dele em uma intensidade governada por um parâmetro "Predator Avoid Factor".
 - O programa inclui automaticamente um número ajustável de obstáculos de tamanho variável. O número de obstáculos e seus formatos precisa ser ajustado diretamente no código. Não achei que seria relevante deixar este parâmetro ajustável em tempo real, em particular porque tanto os pássaros quanto o predator se ajustam automaticamente ao se aproximar de um obstáculo, rotacionando o seu vetor de direção para que fique tangente ao obstáculo, desviando-o portanto. Um volume muito grande de obstáculos dispersaria demais os pássaros.
