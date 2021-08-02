@@ -55,7 +55,7 @@ A aplicação permite o controle do movimento da câmera pelo mouse (direção d
 
 Os boids possuem a capacidade de desviar de obstáculos, e para isso foram inseridos alguns obstáculos esféricos que se movem pelo espaço. Para estes obstáculos também foram utilizados shaders de textura. Todos os objetos do espaço possuem shaders de iluminação, sendo a fonte de luz um ponto constante na borda do espaço.
 
-O modelo envolve sete parâmetros ajustáveis pelo teclado (teclas F\[1-7\] e \[1-7\] para acréscimo e decréscimo de 0.1 em cada parâmetro).
+O modelo envolve sete parâmetros ajustáveis pelo teclado (teclas F\[1-7\] e \[1-7\] para acréscimo e decréscimo, respectivamente, de 0.1 em cada parâmetro).
 
 1. Raio de Visão
 2. Fator de Velocidade: Determina a velocidade dos boids.
