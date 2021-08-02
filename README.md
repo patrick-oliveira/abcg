@@ -49,11 +49,21 @@ Estes parâmetros podem ser ajustados para observar mudanças no comportamento g
 
 #### 3. Boids 3D
 
+É uma extensão da aplicação anterior, portanto muitos elementos permanecem similares e exigem apenas adaptações para que funcionem em um espaço tridimensional.
 
+A aplicação permite o controle do movimento da câmera pelo mouse (direção da câmera) e pelo teclado (movimento pelo espaço pelas teclas WASD). Ao abrir, a aplicação vai capturar o mouse a fim de que seja possível o controle da câmera; no WebGL essa função não funciona tão bem, de modo que o movimento da câmera não é tão fluido - se necessário, para sair basta apertar a tecla Windows. A direção da câmera também pode ser controlada pelo teclado, pelas teclas Q e E (rotação para esquerda e direita), I e K (rotação para cima e para baixo). O botão esquerdo do mouse permite pausar e resumir a animação.
 
-## Objetivos Futuros
+Os boids possuem a capacidade de desviar de obstáculos, e para isso foram inseridos alguns obstáculos esféricos que se movem pelo espaço. Para estes obstáculos também foram utilizados shaders de textura. Todos os objetos do espaço possuem shaders de iluminação, sendo a fonte de luz um ponto constante na borda do espaço.
 
-### Otimização
+O modelo envolve sete parâmetros ajustáveis pelo teclado (teclas F\[1-7\] e \[1-7\] para acréscimo e decréscimo de 0.1 em cada parâmetro).
+
+1. Raio de Visão
+2. Fator de Velocidade: Determina a velocidade dos boids.
+3. Distância Mínima de Separação
+4. Fator de Centralidade
+5. Fator de Separação
+6. Coeficiente de Alinhamento
+7. Fator de Correção
 
 ## Referências
 
@@ -61,4 +71,4 @@ A aplicação é baseada no modelo clássico e mais básico proposto por Craig W
 
 - \[1\]: http://www.kfish.org/boids/pseudocode.html
 - \[2\]: http://www.red3d.com/cwr/boids/
-
+- \[3\]: http://www.jeffreythompson.org/collision-detection/index.php
